@@ -8,6 +8,6 @@ public class WelcomeController {
 
     @GetMapping("/welcome")
     public String sayWelcome() {
-        return "보안 없는 봄 응용에 환영합니다.";
+        return "보안 있는 봄 응용에 환영합니다.";
     }
 }
