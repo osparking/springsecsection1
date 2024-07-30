@@ -4,10 +4,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class WelcomeController {
+public class ContactController {
 
-    @GetMapping("/welcome")
-    public String sayWelcome() {
-        return "보안 있는 봄 응용에 환영합니다.";
+    @GetMapping("/contact")
+    public String saveContactInquiryDetails() {
+        return "상세한 문의 정보는 DB 에 저장되었다.";
     }
 }
