@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.bumsoap</groupId>
-	<artifactId>springsecsection1</artifactId>
+	<artifactId>springsecsection2</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>springsecsection1</name>
+	<name>springsecsection2</name>
 	<description>Demo project for Spring Boot 봄 보안 6 easybytes/microservices 리포 구현</description>
 	<url/>
 	<licenses>
