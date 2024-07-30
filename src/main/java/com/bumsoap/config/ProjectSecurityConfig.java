@@ -18,7 +18,7 @@ public class ProjectSecurityConfig {
                     .permitAll()
         );
         http.formLogin(flc -> flc.disable());
-        http.httpBasic(withDefaults());
+        http.httpBasic(hbc -> hbc.disable());
         return http.build();
     }
 }
