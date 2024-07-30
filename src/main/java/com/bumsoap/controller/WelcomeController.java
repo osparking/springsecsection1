@@ -1,4 +1,4 @@
-package com.bumsoap.springsecsection1.controller;
+package com.bumsoap.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
