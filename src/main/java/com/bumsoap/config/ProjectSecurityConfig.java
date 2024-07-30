@@ -11,7 +11,12 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class ProjectSecurityConfig {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests((requests) -> requests.anyRequest().denyAll());
+        http.authorizeHttpRequests((req) -> req
+                .requestMatchers("/myAccont", "/myBalance", "/myLoans", "/myCards")
+                    .authenticated()
+                .requestMatchers("/notices", "/contact", "/error")
+                    .permitAll()
+        );
         http.formLogin(withDefaults());
         http.httpBasic(withDefaults());
         return http.build();
