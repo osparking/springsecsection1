@@ -15,3 +15,8 @@ CREATE TABLE `customer` (
   `role` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
 );
+
+INSERT  INTO `customer` (`email`, `pwd`, `role`)
+    VALUES ('jbum@bumsoap.space', '{noop}bumsoap@1234', 'read');
+INSERT  INTO `customer` (`email`, `pwd`, `role`)
+    VALUES ('admin@bumsoap.space', '{bcrypt}$2a$12$KnVwuM5uJmFzpAhKfk2Y1.DhtHEuVppi1NQ6AePbBSKY2F.n8r8/y', 'admin');
