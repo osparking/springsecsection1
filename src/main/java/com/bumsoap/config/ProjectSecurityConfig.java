@@ -15,7 +15,8 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class ProjectSecurityConfig {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests((req) -> req
+        http.csrf(csrfConfig -> csrfConfig.disable())
+            .authorizeHttpRequests((req) -> req
                 .requestMatchers("/myAccount", "/myBalance", "/myLoans",
                         "/myCards", "/register")
                     .authenticated()
