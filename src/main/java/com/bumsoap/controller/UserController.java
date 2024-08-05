@@ -18,7 +18,9 @@ public class UserController {
 
     public ResponseEntity<String> createUser(@RequestBody Customer customer) {
         try {
-
+            String hashedPwd = passwordEncoder.encode(customer.getPwd());
+            customer.setPwd(hashedPwd);
+            Customer customerInDB = customerRepository.save(customer);
         } catch (Exception ex) {
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
