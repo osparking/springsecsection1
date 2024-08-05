@@ -21,6 +21,14 @@ public class UserController {
             String hashedPwd = passwordEncoder.encode(customer.getPwd());
             customer.setPwd(hashedPwd);
             Customer customerInDB = customerRepository.save(customer);
+
+            if (customerInDB.getId() > 0) {
+                return ResponseEntity.status(HttpStatus.CREATED)
+                        .body("고객 정보가 저장되었습니다.");
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("고객 정보 저장에 실패하였습니다.");
+            }
         } catch (Exception ex) {
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
