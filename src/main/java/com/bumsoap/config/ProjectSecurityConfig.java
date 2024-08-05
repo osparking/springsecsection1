@@ -18,9 +18,9 @@ public class ProjectSecurityConfig {
         http.csrf(csrfConfig -> csrfConfig.disable())
             .authorizeHttpRequests((req) -> req
                 .requestMatchers("/myAccount", "/myBalance", "/myLoans",
-                        "/myCards", "/register")
+                        "/myCards")
                     .authenticated()
-                .requestMatchers("/notices", "/contact", "/error")
+                .requestMatchers("/notices", "/contact", "/error", "/register")
                     .permitAll()
         );
         http.formLogin(withDefaults());
