@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,6 +17,7 @@ public class UserController {
     private final CustomerRepository customerRepository;
     private final PasswordEncoder passwordEncoder;
 
+    @PostMapping("/register")
     public ResponseEntity<String> createUser(@RequestBody Customer customer) {
         try {
             String hashedPwd = passwordEncoder.encode(customer.getPwd());
@@ -34,6 +36,5 @@ public class UserController {
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("고객 생성 예외: " + ex.getMessage());
         }
-        return null;
     }
 }
