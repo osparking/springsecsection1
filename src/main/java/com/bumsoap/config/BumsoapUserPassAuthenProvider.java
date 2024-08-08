@@ -28,6 +28,7 @@ public class BumsoapUserPassAuthenProvider implements AuthenticationProvider {
         String plainPwd =  authentication.getCredentials().toString();
         UserDetails userDetails = bumsoapUserDetailsService.loadUserByUsername(username);
         if (passwordEncoder.matches(plainPwd, userDetails.getPassword())) {
+            // check additional custom conditions here
             return new UsernamePasswordAuthenticationToken(username, plainPwd, userDetails.getAuthorities());
         } else {
             throw new BadCredentialsException("자격정보 오류");
