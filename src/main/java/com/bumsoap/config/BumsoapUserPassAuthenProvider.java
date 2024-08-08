@@ -20,7 +20,7 @@ public class BumsoapUserPassAuthenProvider implements AuthenticationProvider {
     /**
      * @param authentication the authentication request object.
      * @return
-     * @throws BadCredentialsException
+     * @throws AuthenticationException
      */
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
