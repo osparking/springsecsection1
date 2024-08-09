@@ -3,6 +3,7 @@ package com.bumsoap.config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -11,9 +12,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
-@Profile("!prod")
+@Profile("prod")
 @RequiredArgsConstructor
-public class BumsoapUserPassAuthenProvider implements AuthenticationProvider {
+public class BumsoapProdUserPassAuthenProvider implements AuthenticationProvider {
 
     private final BumsoapUserDetailsService bumsoapUserDetailsService;
     private final PasswordEncoder passwordEncoder;
@@ -28,7 +29,12 @@ public class BumsoapUserPassAuthenProvider implements AuthenticationProvider {
         String username = authentication.getName();
         String plainPwd =  authentication.getCredentials().toString();
         UserDetails userDetails = bumsoapUserDetailsService.loadUserByUsername(username);
-        return new UsernamePasswordAuthenticationToken(username, plainPwd, userDetails.getAuthorities());
+        if (passwordEncoder.matches(plainPwd, userDetails.getPassword())) {
+            // check additional custom conditions here
+            return new UsernamePasswordAuthenticationToken(username, plainPwd, userDetails.getAuthorities());
+        } else {
+            throw new BadCredentialsException("자격정보 오류");
+        }
     }
 
     /**
