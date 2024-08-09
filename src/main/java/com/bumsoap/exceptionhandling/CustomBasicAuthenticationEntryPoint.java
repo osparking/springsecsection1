@@ -21,5 +21,13 @@ public class CustomBasicAuthenticationEntryPoint implements AuthenticationEntryP
 
         response.setHeader("Bumsoap-error-reason", "User authentication error");
         response.sendError(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase());
+
+        response.setContentType("application/json;charset=UTF-8");
+        // Construct the JSON response
+        String jsonResponse =
+                String.format("{\"timestamp\": \"%s\", \"status\": %d, \"error\": \"%s\", \"message\": \"%s\", \"path\": \"%s\"}",
+                        currentTimeStamp, HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase(),
+                        message, path);
+        response.getWriter().write(jsonResponse);
     }
 }
