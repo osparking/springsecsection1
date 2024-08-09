@@ -13,7 +13,7 @@ public class CustomBasicAuthenticationEntryPoint implements AuthenticationEntryP
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,
                          AuthenticationException authException) throws IOException, ServletException {
-        response.setHeader("범이비누-오류-원인", "자격정보(유저이름-패스워드) 오류");
+        response.setHeader("Bumsoap-error-reason", "User authentication error");
         response.sendError(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase());
     }
 }
