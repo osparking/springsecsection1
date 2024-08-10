@@ -13,21 +13,24 @@ import java.time.LocalDateTime;
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
     @Override
-    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
+    public void handle(HttpServletRequest request, HttpServletResponse response,
+                       AccessDeniedException accessDeniedException)
+            throws IOException, ServletException {
         LocalDateTime currentTimeStamp = LocalDateTime.now();
-        String message = (authException != null && authException.getMessage() != null)
-                ? authException.getMessage() : "Unauthorized";
+        String message = (accessDeniedException != null &&
+                accessDeniedException.getMessage() != null) ?
+                accessDeniedException.getMessage() : "Authorization Failure";
         String path = request.getRequestURI();
 
-        response.setHeader("Bumsoap-error-reason", "User authentication error");
-        response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        response.setHeader("Bumsoap-error-reason", "Authentication Failure");
+        response.setStatus(HttpStatus.FORBIDDEN.value());
 
         response.setContentType("application/json;charset=UTF-8");
         // Construct the JSON response
         String jsonResponse =
                 String.format("{\"timestamp\": \"%s\", \"status\": %d, \"error\": \"%s\", \"message\": \"%s\", \"path\": \"%s\"}",
-                        currentTimeStamp, HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase(),
-                        message, path);
+                        currentTimeStamp, HttpStatus.FORBIDDEN.value(),
+                        HttpStatus.FORBIDDEN.getReasonPhrase(), message, path);
         response.getWriter().write(jsonResponse);
     }
 }
