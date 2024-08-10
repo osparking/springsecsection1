@@ -19,13 +19,15 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class ProjectSecurityConfig {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-        http.requiresChannel(rcc -> rcc.anyRequest().requiresInsecure())
+        http.sessionManagement(smc -> smc.invalidSessionUrl("/invalid_session"))
+            .requiresChannel(rcc -> rcc.anyRequest().requiresInsecure())
             .csrf(csrfConfig -> csrfConfig.disable())
             .authorizeHttpRequests((req) -> req
                 .requestMatchers("/myAccount", "/myBalance", "/myLoans",
                         "/myCards")
                     .authenticated()
-                .requestMatchers("/notices", "/contact", "/error", "/register")
+                .requestMatchers("/notices", "/contact", "/error", "/register",
+                        "invalid_session")
                     .permitAll()
         );
         http.formLogin(withDefaults());
