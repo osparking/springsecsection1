@@ -19,7 +19,8 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class ProjectSecurityProdConfig {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-        http.sessionManagement(smc -> smc.invalidSessionUrl("/invalid_session"))
+        http.sessionManagement(smc -> smc.invalidSessionUrl("/invalid_session")
+                        .maximumSessions(1))
             .requiresChannel(rcc -> rcc.anyRequest().requiresSecure())
             .csrf(csrfConfig -> csrfConfig.disable())
             .authorizeHttpRequests((req) -> req
