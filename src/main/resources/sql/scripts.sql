@@ -154,3 +154,13 @@ CURDATE() - INTERVAL 30 DAY, CURDATE() + INTERVAL 30 DAY, CURDATE(), null);
 INSERT INTO `notice_details` ( `notice_summary`, `notice_details`, `notic_beg_dt`, `notic_end_dt`, `create_dt`, `update_dt`)
 VALUES ('어릴 때부터 하도 많이 듣거나', '판본이 상당히 다양하지만 대부분이 어린이용으로 번역된 탓에 그리스 고전 번역가인 천병희 단국대 명예교수의 번역이 나오기 전',
 CURDATE() - INTERVAL 30 DAY, CURDATE() + INTERVAL 30 DAY, CURDATE(), null);
+
+CREATE TABLE `contact_messages` (
+  `contact_id` varchar(50) NOT NULL,
+  `contact_name` varchar(50) NOT NULL,
+  `contact_email` varchar(100) NOT NULL,
+  `subject` varchar(500) NOT NULL,
+  `message` varchar(2000) NOT NULL,
+  `create_dt` date DEFAULT NULL,
+  PRIMARY KEY (`contact_id`)
+);
