@@ -110,3 +110,12 @@ CREATE TABLE `cards` (
   KEY `customer_id` (`customer_id`),
   CONSTRAINT `card_customer_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`) ON DELETE CASCADE
 );
+
+INSERT INTO `cards` (`card_number`, `customer_id`, `card_type`, `total_limit`, `amount_used`, `available_amount`, `create_dt`)
+ VALUES ('4565XXXX4656', 1, '신용', 1000000, 50000, 950000, CURDATE());
+
+INSERT INTO `cards` (`card_number`, `customer_id`, `card_type`, `total_limit`, `amount_used`, `available_amount`, `create_dt`)
+ VALUES ('3455XXXX8673', 1, '신용', 750000, 60000, 690000, CURDATE());
+
+INSERT INTO `cards` (`card_number`, `customer_id`, `card_type`, `total_limit`, `amount_used`, `available_amount`, `create_dt`)
+ VALUES ('2359XXXX9346', 1, '신용', 2000000, 400000, 1600000, CURDATE());
