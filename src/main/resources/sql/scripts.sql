@@ -84,3 +84,15 @@ CREATE TABLE `loans` (
   KEY `customer_id` (`customer_id`),
   CONSTRAINT `loan_customer_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`) ON DELETE CASCADE
 );
+
+INSERT INTO `loans` ( `customer_id`, `start_dt`, `loan_type`, `total_loan`, `amount_paid`, `outstanding_amount`, `create_dt`)
+ VALUES ( 1, '2020-10-13', '주택', 20000000, 5000000, 15000000, '2020-10-13');
+
+INSERT INTO `loans` ( `customer_id`, `start_dt`, `loan_type`, `total_loan`, `amount_paid`, `outstanding_amount`, `create_dt`)
+ VALUES ( 1, '2020-06-06', '자동차', 4000000, 1000000, 3000000, '2020-06-06');
+
+INSERT INTO `loans` ( `customer_id`, `start_dt`, `loan_type`, `total_loan`, `amount_paid`, `outstanding_amount`, `create_dt`)
+ VALUES ( 1, '2018-02-14', '주택', 5000000, 1000000, 4000000, '2018-02-14');
+
+INSERT INTO `loans` ( `customer_id`, `start_dt`, `loan_type`, `total_loan`, `amount_paid`, `outstanding_amount`, `create_dt`)
+ VALUES ( 1, '2018-02-14', '생활비', 1000000, 350000, 650000, '2018-02-14');
