@@ -16,3 +16,9 @@ CREATE TABLE `customer` (
   `create_dt` date DEFAULT NULL,
   PRIMARY KEY (`customer_id`)
 );
+
+INSERT INTO `customer` (`name`,`email`,`mobile_number`, `pwd`, `role`,`create_dt`)
+ VALUES ('범이','jbum@bumsoap.space','01023456789',
+    '{bcrypt}$2a$12$P8b.dKAy1RGQC2ioIORiUu4lCcDDTFIms8uDDt8PWlxrakfxj2bfi',
+    'admin', CURDATE());
+    
