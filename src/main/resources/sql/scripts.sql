@@ -52,3 +52,21 @@ CREATE TABLE `account_transactions` (
   CONSTRAINT `accounts_ibfk_2` FOREIGN KEY (`account_number`) REFERENCES `accounts` (`account_number`) ON DELETE CASCADE,
   CONSTRAINT `acct_user_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`) ON DELETE CASCADE
 );
+
+INSERT INTO `account_transactions` (`transaction_id`, `account_number`, `customer_id`, `transaction_dt`, `transaction_summary`, `transaction_type`,`transaction_amt`,
+`closing_balance`, `create_dt`)  VALUES (UUID(), 411576453459, 1, DATE_SUB(CURDATE(), INTERVAL 7 DAY), '범이커피', '출금', 30000,3450000,DATE_SUB(CURDATE(), INTERVAL 7 DAY));
+
+INSERT INTO `account_transactions` (`transaction_id`, `account_number`, `customer_id`, `transaction_dt`, `transaction_summary`, `transaction_type`,`transaction_amt`,
+`closing_balance`, `create_dt`)  VALUES (UUID(), 411576453459, 1, DATE_SUB(CURDATE(), INTERVAL 6 DAY), '카카오택시', '출금', 10000,3440000,DATE_SUB(CURDATE(), INTERVAL 6 DAY));
+
+INSERT INTO `account_transactions` (`transaction_id`, `account_number`, `customer_id`, `transaction_dt`, `transaction_summary`, `transaction_type`,`transaction_amt`,
+`closing_balance`, `create_dt`)  VALUES (UUID(), 411576453459, 1, DATE_SUB(CURDATE(), INTERVAL 5 DAY), '자기 입금', '입금', 50000,3490000,DATE_SUB(CURDATE(), INTERVAL 5 DAY));
+
+INSERT INTO `account_transactions` (`transaction_id`, `account_number`, `customer_id`, `transaction_dt`, `transaction_summary`, `transaction_type`,`transaction_amt`,
+`closing_balance`, `create_dt`)  VALUES (UUID(), 411576453459, 1, DATE_SUB(CURDATE(), INTERVAL 4 DAY), '네이버쇼핑', '출금', 60000,3430000,DATE_SUB(CURDATE(), INTERVAL 4 DAY));
+
+INSERT INTO `account_transactions` (`transaction_id`, `account_number`, `customer_id`, `transaction_dt`, `transaction_summary`, `transaction_type`,`transaction_amt`,
+`closing_balance`, `create_dt`)  VALUES (UUID(), 411576453459, 1, DATE_SUB(CURDATE(), INTERVAL 2 DAY), '온라인이체', '입금', 70000,3500000,DATE_SUB(CURDATE(), INTERVAL 2 DAY));
+
+INSERT INTO `account_transactions` (`transaction_id`, `account_number`, `customer_id`, `transaction_dt`, `transaction_summary`, `transaction_type`,`transaction_amt`,
+`closing_balance`, `create_dt`)  VALUES (UUID(), 411576453459, 1, DATE_SUB(CURDATE(), INTERVAL 1 DAY), 'aliexpress.com', '출금', 10000,3490000,DATE_SUB(CURDATE(), INTERVAL 1 DAY));
