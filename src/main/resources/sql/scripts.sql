@@ -70,3 +70,17 @@ INSERT INTO `account_transactions` (`transaction_id`, `account_number`, `custome
 
 INSERT INTO `account_transactions` (`transaction_id`, `account_number`, `customer_id`, `transaction_dt`, `transaction_summary`, `transaction_type`,`transaction_amt`,
 `closing_balance`, `create_dt`)  VALUES (UUID(), 411576453459, 1, DATE_SUB(CURDATE(), INTERVAL 1 DAY), 'aliexpress.com', '출금', 10000,3490000,DATE_SUB(CURDATE(), INTERVAL 1 DAY));
+
+CREATE TABLE `loans` (
+  `loan_number` int NOT NULL AUTO_INCREMENT,
+  `customer_id` int NOT NULL,
+  `start_dt` date NOT NULL,
+  `loan_type` varchar(100) NOT NULL,
+  `total_loan` int NOT NULL,
+  `amount_paid` int NOT NULL,
+  `outstanding_amount` int NOT NULL,
+  `create_dt` date DEFAULT NULL,
+  PRIMARY KEY (`loan_number`),
+  KEY `customer_id` (`customer_id`),
+  CONSTRAINT `loan_customer_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`) ON DELETE CASCADE
+);
