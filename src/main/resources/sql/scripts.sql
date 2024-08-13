@@ -32,3 +32,6 @@ CREATE TABLE `accounts` (
   KEY `customer_id` (`customer_id`),
   CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`) ON DELETE CASCADE
 );
+
+INSERT INTO `accounts` (`customer_id`, `account_number`, `account_type`, `branch_address`, `create_dt`)
+ VALUES (1, 411576453459, '저축', '미사강변대로 101', CURDATE());
