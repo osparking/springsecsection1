@@ -27,7 +27,7 @@ public class UserController {
         try {
             String hashedPwd = passwordEncoder.encode(customer.getPwd());
             customer.setPwd(hashedPwd);
-            customer.setCreateAt(new Date(System.currentTimeMillis()));
+            customer.setCreateDt(new Date(System.currentTimeMillis()));
             Customer customerInDB = customerRepository.save(customer);
 
             if (customerInDB.getId() > 0) {
