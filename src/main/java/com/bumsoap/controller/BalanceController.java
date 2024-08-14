@@ -1,13 +1,24 @@
 package com.bumsoap.controller;
 
+import com.bumsoap.model.AccountTransactions;
+import com.bumsoap.repository.AccountTransactionsRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
+@RequiredArgsConstructor
 public class BalanceController {
 
+    private final AccountTransactionsRepository accountTransactionsRepository;
+
     @GetMapping("/myBalance")
-    public String getBalanceDetails() {
-        return "여기 잔고 상세정보는 DB 에서 읽은 것입니다.";
+    public List<AccountTransactions> getBalanceDetails(@RequestParam long id) {
+        List<AccountTransactions> accountTransactions = accountTransactionsRepository.
+                findByCustomerIdOrderByTransactionDtDesc(id);
+        return accountTransactions;
     }
 }
