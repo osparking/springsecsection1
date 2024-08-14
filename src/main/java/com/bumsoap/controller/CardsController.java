@@ -1,13 +1,23 @@
 package com.bumsoap.controller;
 
+import com.bumsoap.model.Cards;
+import com.bumsoap.repository.CardsRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
+@RequiredArgsConstructor
 public class CardsController {
 
+    private final CardsRepository cardsRepository;
+
     @GetMapping("/myCards")
-    public String getCardDetails() {
-        return "상세한 카드 정보는 DB 에 저장되었다.";
+    public List<Cards> getCardDetails(@RequestParam long id) {
+        List<Cards> cards = cardsRepository.findByCustomerId(id);
+        return cards;
     }
 }
