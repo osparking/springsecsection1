@@ -25,7 +25,7 @@ public class ProjectSecurityConfig {
             .csrf(csrfConfig -> csrfConfig.disable())
             .authorizeHttpRequests((req) -> req
                 .requestMatchers("/myAccount", "/myBalance", "/myLoans",
-                        "/myCards")
+                        "/myCards", "/user")
                     .authenticated()
                 .requestMatchers("/notices", "/contact", "/error", "/register",
                         "invalid_session")
