@@ -36,10 +36,7 @@ public class ProjectSecurityConfig {
                 return config;
             }
         }));
-        http.sessionManagement(smc -> smc.invalidSessionUrl("/invalid_session")
-                .maximumSessions(3).maxSessionsPreventsLogin(true))
-            .requiresChannel(rcc -> rcc.anyRequest().requiresInsecure())
-            .csrf(csrfConfig -> csrfConfig.disable())
+        http.requiresChannel(rcc -> rcc.anyRequest().requiresInsecure())
             .authorizeHttpRequests((req) -> req
                 .requestMatchers("/myAccount", "/myBalance", "/myLoans",
                         "/myCards", "/user")
