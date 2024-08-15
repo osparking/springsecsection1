@@ -12,6 +12,7 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.password.HaveIBeenPwnedRestApiPasswordChecker;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
@@ -36,6 +37,8 @@ public class ProjectSecurityConfig {
                 return config;
             }
         }));
+        http.csrf(csrfConfig -> csrfConfig.csrfTokenRepository(
+                CookieCsrfTokenRepository.withHttpOnlyFalse()));
         http.requiresChannel(rcc -> rcc.anyRequest().requiresInsecure())
             .authorizeHttpRequests((req) -> req
                 .requestMatchers("/myAccount", "/myBalance", "/myLoans",
