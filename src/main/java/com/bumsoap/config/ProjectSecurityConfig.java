@@ -2,6 +2,7 @@ package com.bumsoap.config;
 
 import com.bumsoap.exceptionhandling.CustomAccessDeniedHandler;
 import com.bumsoap.exceptionhandling.CustomBasicAuthenticationEntryPoint;
+import com.bumsoap.filter.CsrfCookieFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.password.HaveIBeenPwnedRestApiPasswordChecker;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -39,6 +41,7 @@ public class ProjectSecurityConfig {
         }));
         http.csrf(csrfConfig -> csrfConfig.csrfTokenRepository(
                 CookieCsrfTokenRepository.withHttpOnlyFalse()));
+        http.addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class);
         http.requiresChannel(rcc -> rcc.anyRequest().requiresInsecure())
             .authorizeHttpRequests((req) -> req
                 .requestMatchers("/myAccount", "/myBalance", "/myLoans",
