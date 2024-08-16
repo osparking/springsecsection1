@@ -15,6 +15,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.password.HaveIBeenPwnedRestApiPasswordChecker;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
@@ -27,6 +28,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class ProjectSecurityConfig {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+
         http.cors(corsCustomizer -> corsCustomizer.configurationSource(new CorsConfigurationSource() {
             @Override
             public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
@@ -39,8 +41,14 @@ public class ProjectSecurityConfig {
                 return config;
             }
         }));
-        http.csrf(csrfConfig -> csrfConfig.csrfTokenRepository(
-                CookieCsrfTokenRepository.withHttpOnlyFalse()));
+
+        CsrfTokenRequestAttributeHandler csrfTokenRequestAttributeHandler =
+                new CsrfTokenRequestAttributeHandler();
+
+        http.csrf(csrfConfig -> csrfConfig
+                .csrfTokenRequestHandler(csrfTokenRequestAttributeHandler)
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()));
+
         http.addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class);
         http.requiresChannel(rcc -> rcc.anyRequest().requiresInsecure())
             .authorizeHttpRequests((req) -> req
