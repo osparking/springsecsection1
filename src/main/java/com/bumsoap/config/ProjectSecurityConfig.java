@@ -30,7 +30,8 @@ public class ProjectSecurityConfig {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
 
-        http.sessionManagement(sessionConfig -> sessionConfig.sessionCreationPolicy(
+        http.securityContext(contextConfig -> contextConfig.requireExplicitSave(false))
+            .sessionManagement(sessionConfig -> sessionConfig.sessionCreationPolicy(
                 SessionCreationPolicy.ALWAYS))
             .cors(corsCustomizer -> corsCustomizer.configurationSource(new CorsConfigurationSource() {
             @Override
