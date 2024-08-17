@@ -58,7 +58,7 @@ public class ProjectSecurityConfig {
         http.requiresChannel(rcc -> rcc.anyRequest().requiresInsecure())
             .authorizeHttpRequests((req) -> req
                 .requestMatchers("/myAccount").hasAuthority("VIEWACCOUNT")
-                .requestMatchers("/myBalance").hasAuthority("VIEWBALANCE")
+                .requestMatchers("/myBalance").hasAnyAuthority("VIEWBALANCE", "VIEWACCOUNT")
                 .requestMatchers("/myLoans").hasAuthority("VIEWLOANS")
                 .requestMatchers("/myCards").hasAuthority("VIEWCARDS")
                 .requestMatchers("/user").authenticated()
