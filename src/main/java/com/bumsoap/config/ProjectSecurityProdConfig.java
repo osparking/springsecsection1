@@ -51,12 +51,13 @@ public class ProjectSecurityProdConfig {
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
             .requiresChannel(rcc -> rcc.anyRequest().requiresSecure())
             .authorizeHttpRequests((req) -> req
-                .requestMatchers("/myAccount", "/myBalance", "/myLoans",
-                        "/myCards", "/user")
-                    .authenticated()
+                .requestMatchers("/myAccount").hasAuthority("VIEWACCOUNT")
+                .requestMatchers("/myBalance").hasAnyAuthority("VIEWBALANCE", "VIEWACCOUNT")
+                .requestMatchers("/myLoans").hasAuthority("VIEWLOANS")
+                .requestMatchers("/myCards").hasAuthority("VIEWCARDS")
+                .requestMatchers("/user").authenticated()
                 .requestMatchers("/notices", "/contact", "/error", "/register",
-                        "invalid_session")
-                    .permitAll()
+                        "invalid_session").permitAll()
         );
         http.formLogin(withDefaults());
         http.httpBasic(hbc -> hbc.authenticationEntryPoint(new CustomBasicAuthenticationEntryPoint()));
