@@ -57,9 +57,11 @@ public class ProjectSecurityConfig {
         http.addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class);
         http.requiresChannel(rcc -> rcc.anyRequest().requiresInsecure())
             .authorizeHttpRequests((req) -> req
-                .requestMatchers("/myAccount", "/myBalance", "/myLoans",
-                        "/myCards", "/user")
-                    .authenticated()
+                .requestMatchers("/myAccount").hasAuthority("VIEWACCOUNT")
+                .requestMatchers("/myBalance").hasAuthority("VIEWBALANCE")
+                .requestMatchers("/myLoans").hasAuthority("VIEWLOANS")
+                .requestMatchers("/myCards").hasAuthority("VIEWCARDS")
+                .requestMatchers("/user").authenticated()
                 .requestMatchers("/notices", "/contact", "/error", "/register",
                         "invalid_session")
                     .permitAll()
