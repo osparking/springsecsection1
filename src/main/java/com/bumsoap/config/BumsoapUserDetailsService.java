@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -29,8 +30,9 @@ public class BumsoapUserDetailsService  implements UserDetailsService {
         String msg = username + "은 존재하지 않습니다.";
         Customer customer = customerRepository.findByEmail(username).orElseThrow(
                 () -> new UsernameNotFoundException(msg));
-        List<GrantedAuthority> roles = List.of(new SimpleGrantedAuthority(customer.getRole()));
-
+        List<GrantedAuthority> roles = customer.getAuthorities().stream()
+                .map(auth -> new SimpleGrantedAuthority(auth.getRole()))
+                .collect(Collectors.toList());
         return new User(customer.getEmail(), customer.getPwd(), roles);
     }
 }
