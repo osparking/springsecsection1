@@ -28,5 +28,6 @@ public class Customer {
     private Date createDt;
 
     @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
+    @JsonIgnore
     private Set<Authority> authorities;
 }
