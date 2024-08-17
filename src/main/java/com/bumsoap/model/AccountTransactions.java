@@ -24,5 +24,5 @@ public class AccountTransactions {
     private String transactionType;
     private int transactionAmt;
     private int closingBalance;
-    private Date createAt;
+    private Date createDt;
 }
