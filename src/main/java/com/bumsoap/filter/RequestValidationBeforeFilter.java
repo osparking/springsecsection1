@@ -4,6 +4,7 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.util.StringUtils;
 
 import java.io.IOException;
@@ -25,6 +26,14 @@ public class RequestValidationBeforeFilter implements Filter {
                 try {
                     decoded = Base64.getDecoder().decode(base64Token);
                     String token = new String(decoded, StandardCharsets.UTF_8);
+                    int delim = token.indexOf(':');
+                    if (delim == -1) {
+                        throw new BadCredentialsException("옳지 않은 기본 AuthN 토큰");
+                    }
+                    String email = token.substring(0, delim);
+                    if (email.toLowerCase().contains("test")) {
+                        res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                    }
                 }
             }
         }
