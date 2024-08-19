@@ -3,6 +3,7 @@ package com.bumsoap.config;
 import com.bumsoap.exceptionhandling.CustomAccessDeniedHandler;
 import com.bumsoap.exceptionhandling.CustomBasicAuthenticationEntryPoint;
 import com.bumsoap.filter.CsrfCookieFilter;
+import com.bumsoap.filter.RequestValidationBeforeFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -55,6 +56,7 @@ public class ProjectSecurityConfig {
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()));
 
         http.addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class);
+        http.addFilterBefore(new RequestValidationBeforeFilter(), BasicAuthenticationFilter.class);
         http.requiresChannel(rcc -> rcc.anyRequest().requiresInsecure())
             .authorizeHttpRequests((req) -> req
                 .requestMatchers("/myAccount").hasRole("USER")
