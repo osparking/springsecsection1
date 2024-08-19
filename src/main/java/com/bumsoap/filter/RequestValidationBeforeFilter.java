@@ -34,8 +34,11 @@ public class RequestValidationBeforeFilter implements Filter {
                     if (email.toLowerCase().contains("test")) {
                         res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                     }
+                } catch (IllegalArgumentException e) {
+                    throw new BadCredentialsException("기본 AuthN 토큰 복호화 실패");
                 }
             }
         }
+        chain.doFilter(request, response);
     }
 }
