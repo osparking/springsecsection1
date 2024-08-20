@@ -35,7 +35,7 @@ public class ProjectSecurityConfig {
 
         http.securityContext(contextConfig -> contextConfig.requireExplicitSave(false))
             .sessionManagement(sessionConfig -> sessionConfig.sessionCreationPolicy(
-                SessionCreationPolicy.ALWAYS))
+                SessionCreationPolicy.STATELESS))
             .cors(corsCustomizer -> corsCustomizer.configurationSource(new CorsConfigurationSource() {
             @Override
             public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
