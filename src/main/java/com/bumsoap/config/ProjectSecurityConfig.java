@@ -2,10 +2,7 @@ package com.bumsoap.config;
 
 import com.bumsoap.exceptionhandling.CustomAccessDeniedHandler;
 import com.bumsoap.exceptionhandling.CustomBasicAuthenticationEntryPoint;
-import com.bumsoap.filter.AuthoritiesLoggingFilter;
-import com.bumsoap.filter.CsrfCookieFilter;
-import com.bumsoap.filter.RequestValidationBeforeFilter;
-import com.bumsoap.filter.UserLoggingFilter;
+import com.bumsoap.filter.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -62,6 +59,8 @@ public class ProjectSecurityConfig {
         http.addFilterBefore(new RequestValidationBeforeFilter(), BasicAuthenticationFilter.class);
         http.addFilterAfter(new UserLoggingFilter(), BasicAuthenticationFilter.class);
         http.addFilterAt(new AuthoritiesLoggingFilter(), BasicAuthenticationFilter.class);
+        http.addFilterAfter(new JwtTokenGeneratorFilter(), BasicAuthenticationFilter.class);
+        http.addFilterBefore(new JwtTokenValidatorFiltor(), BasicAuthenticationFilter.class);
         http.requiresChannel(rcc -> rcc.anyRequest().requiresInsecure())
             .authorizeHttpRequests((req) -> req
                 .requestMatchers("/myAccount").hasRole("USER")
