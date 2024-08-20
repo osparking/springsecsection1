@@ -22,4 +22,10 @@ public class JwtTokenGeneratorFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException {
     }
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        return !request.getServletPath().equals("/user");
+    }
+
 }
