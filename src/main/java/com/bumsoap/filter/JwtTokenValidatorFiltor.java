@@ -57,6 +57,7 @@ public class JwtTokenValidatorFiltor extends OncePerRequestFilter {
                 throw new BadCredentialsException("잘못된 토큰을 수신함!");
             }
         }
+        filterChain.doFilter(request, response);
     }
 
     @Override
