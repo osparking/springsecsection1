@@ -13,6 +13,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.crypto.SecretKey;
@@ -49,6 +50,7 @@ public class JwtTokenValidatorFiltor extends OncePerRequestFilter {
                         Authentication authentication = new UsernamePasswordAuthenticationToken(
                                 username, null,
                                 AuthorityUtils.commaSeparatedStringToAuthorityList(authorities));
+                        SecurityContextHolder.getContext().setAuthentication(authentication);
                     }
                 }
             } catch (Exception e) {
