@@ -9,7 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 @SpringBootApplication
 @EnableJpaRepositories("com.bumsoap.repository")
 @EntityScan("com.bumsoap.model")
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity
 public class EasyBankBackendApplication {
 
 	public static void main(String[] args) {
