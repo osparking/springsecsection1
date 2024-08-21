@@ -10,6 +10,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.crypto.SecretKey;
@@ -41,8 +44,13 @@ public class JwtTokenValidatorFiltor extends OncePerRequestFilter {
                     if (secretKey != null) {
                         Claims claims = Jwts.parser().verifyWith(secretKey)
                                 .build().parseSignedClaims(jwt).getPayload();
+                        String username = String.valueOf(claims.get("username"));
+                        String authorities = String.valueOf(claims.get("authorities"));
+                        Authentication authentication = new UsernamePasswordAuthenticationToken(
+                                username, null,
+                                AuthorityUtils.commaSeparatedStringToAuthorityList(authorities));
                     }
-
+                }
             } catch (Exception e) {
                 throw new BadCredentialsException("잘못된 토큰을 수신함!");
             }
