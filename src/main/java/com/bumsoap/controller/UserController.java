@@ -50,4 +50,10 @@ public class UserController {
                 = customerRepository.findByEmail(authentication.getName());
         return optionalCustomer.orElse(null);
     }
+    
+    @PostMapping("/apiLogin")
+    public ResponseEntity<LoginResponseDto> apiLogin(
+            @RequestBody LoginRequestDto loginRequestDto) {
+
+    }
 }
