@@ -1,5 +1,7 @@
 package com.bumsoap.filter;
 
+import com.bumsoap.constants.ApplicationConstants;
+import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -9,7 +11,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import javax.crypto.SecretKey;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 public class JwtTokenGeneratorFilter extends OncePerRequestFilter {
     /**
@@ -30,7 +34,12 @@ public class JwtTokenGeneratorFilter extends OncePerRequestFilter {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null) {
             Environment env = getEnvironment();
-            env.getProperty("JWT_SECRET", "TQxGOsUedLLrgOgdStA2MLq6XbB1FDlq");
+            if (env != null) {
+                String secret = env.getProperty(ApplicationConstants.JWT_SECRET,
+                        ApplicationConstants.JWT_SECRET_DEFAULT_VALUE);
+                SecretKey secretKey =
+                        Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+            }
         }
         filterChain.doFilter(request, response);
     }
