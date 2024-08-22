@@ -1,10 +1,13 @@
 package com.bumsoap.controller;
 
+import com.bumsoap.constants.ApplicationConstants;
 import com.bumsoap.model.Customer;
 import com.bumsoap.model.LoginRequestDto;
 import com.bumsoap.model.LoginResponseDto;
 import com.bumsoap.repository.CustomerRepository;
+import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
 import java.sql.Date;
 import java.util.Optional;
 
@@ -26,6 +31,7 @@ public class UserController {
     private final CustomerRepository customerRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final Environment env;
 
     @PostMapping("/register")
     public ResponseEntity<String> createUser(@RequestBody Customer customer) {
@@ -66,9 +72,16 @@ public class UserController {
         Authentication authenticationDone =
                 authenticationManager.authenticate(authentication);
         if (authenticationDone != null && authenticationDone.isAuthenticated()) {
+            if (env != null) {
+                String secret = env.getProperty(ApplicationConstants.JWT_SECRET,
+                        ApplicationConstants.JWT_SECRET_DEFAULT_VALUE);
+                SecretKey secretKey =
+                        Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
             /**
              * jwt 토큰 생성
              */
+            }
+
         }
     }
 }
