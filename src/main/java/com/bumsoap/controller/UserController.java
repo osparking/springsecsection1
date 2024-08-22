@@ -7,6 +7,7 @@ import com.bumsoap.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -56,6 +57,9 @@ public class UserController {
     @PostMapping("/apiLogin")
     public ResponseEntity<LoginResponseDto> apiLogin(
             @RequestBody LoginRequestDto loginRequestDto) {
-
+        String jwt = null;
+        Authentication authentication =
+                UsernamePasswordAuthenticationToken.unauthenticated(
+                        loginRequestDto.username(), loginRequestDto.password());
     }
 }
