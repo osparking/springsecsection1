@@ -5,6 +5,7 @@ import com.bumsoap.model.Customer;
 import com.bumsoap.model.LoginRequestDto;
 import com.bumsoap.model.LoginResponseDto;
 import com.bumsoap.repository.CustomerRepository;
+import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.env.Environment;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +25,7 @@ import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.sql.Date;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -77,9 +80,16 @@ public class UserController {
                         ApplicationConstants.JWT_SECRET_DEFAULT_VALUE);
                 SecretKey secretKey =
                         Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
-            /**
-             * jwt 토큰 생성
-             */
+                /**
+                 * jwt 토큰 생성
+                 */
+                jwt = Jwts.builder().issuer("BumSoap").subject("JWT Token")
+                        .claim("username", authentication.getName())
+                        .claim("authorities", authentication.getAuthorities().stream().map(
+                                GrantedAuthority::getAuthority).collect(Collectors.joining(",")))
+                        .issuedAt(new java.util.Date())
+                        .expiration(new java.util.Date((new java.util.Date()).getTime() + 30000000))
+                        .signWith(secretKey).compact();
             }
 
         }
