@@ -63,5 +63,12 @@ public class UserController {
         Authentication authentication =
                 UsernamePasswordAuthenticationToken.unauthenticated(
                         loginRequestDto.username(), loginRequestDto.password());
+        Authentication authenticationDone =
+                authenticationManager.authenticate(authentication);
+        if (authenticationDone != null && authenticationDone.isAuthenticated()) {
+            /**
+             * jwt 토큰 생성
+             */
+        }
     }
 }
