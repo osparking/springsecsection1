@@ -53,7 +53,7 @@ public class ProjectSecurityProdConfig {
             }))
             .csrf(csrfConfig -> csrfConfig
                 .csrfTokenRequestHandler(csrfTokenRequestAttributeHandler)
-                .ignoringRequestMatchers("/contact", "/register")
+                .ignoringRequestMatchers("/contact", "/register", "/apiLogin")
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
             .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
             .addFilterBefore(new RequestValidationBeforeFilter(), BasicAuthenticationFilter.class)
@@ -69,7 +69,7 @@ public class ProjectSecurityProdConfig {
                 .requestMatchers("/myCards").hasRole("USER")
                 .requestMatchers("/user").authenticated()
                 .requestMatchers("/notices", "/contact", "/error", "/register",
-                        "invalid_session").permitAll()
+                        "invalid_session", "/apiLogin").permitAll()
         );
         http.formLogin(withDefaults());
         http.httpBasic(hbc -> hbc.authenticationEntryPoint(new CustomBasicAuthenticationEntryPoint()));
