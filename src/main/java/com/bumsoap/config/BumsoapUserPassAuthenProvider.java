@@ -7,6 +7,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class BumsoapUserPassAuthenProvider implements AuthenticationProvider {
 
-    private final BumsoapUserDetailsService bumsoapUserDetailsService;
+    private final UserDetailsService bumsoapUserDetailsService;
     private final PasswordEncoder passwordEncoder;
 
     /**
