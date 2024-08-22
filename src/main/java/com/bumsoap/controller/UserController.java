@@ -1,6 +1,8 @@
 package com.bumsoap.controller;
 
 import com.bumsoap.model.Customer;
+import com.bumsoap.model.LoginRequestDto;
+import com.bumsoap.model.LoginResponseDto;
 import com.bumsoap.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
