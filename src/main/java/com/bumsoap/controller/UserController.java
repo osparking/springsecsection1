@@ -84,8 +84,8 @@ public class UserController {
                  * jwt 토큰 생성
                  */
                 jwt = Jwts.builder().issuer("BumSoap").subject("JWT Token")
-                        .claim("username", authentication.getName())
-                        .claim("authorities", authentication.getAuthorities().stream().map(
+                        .claim("username", authenticationDone.getName())
+                        .claim("authorities", authenticationDone.getAuthorities().stream().map(
                                 GrantedAuthority::getAuthority).collect(Collectors.joining(",")))
                         .issuedAt(new java.util.Date())
                         .expiration(new java.util.Date((new java.util.Date()).getTime() + 30000000))
