@@ -90,7 +90,7 @@ public class ProjectSecurityConfig {
     public CompromisedPasswordChecker compromisedPasswordChecker() {
         return new HaveIBeenPwnedRestApiPasswordChecker();
     }
-    
+
     @Bean
     public AuthenticationManager authenticationManager(UserDetailsService userDetailsService,
                                                        PasswordEncoder passwordEncoder) {
