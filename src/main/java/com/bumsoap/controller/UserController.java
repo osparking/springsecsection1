@@ -91,7 +91,10 @@ public class UserController {
                         .expiration(new java.util.Date((new java.util.Date()).getTime() + 30000000))
                         .signWith(secretKey).compact();
             }
-
         }
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .header(ApplicationConstants.JWT_HEADER, jwt)
+                .body(new LoginResponseDto(HttpStatus.OK.getReasonPhrase(), jwt));
     }
 }
