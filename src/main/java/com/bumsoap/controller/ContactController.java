@@ -21,11 +21,10 @@ public class ContactController {
     @PostMapping("/contact")
     @PreFilter("filterObject.contactName != 'Test'")
     public Contact saveContactInquiryDetails(@RequestBody List<Contact> contacts) {
-        Contact contact = contacts.getFirst();
-
-        if (contact == null)
-            return contact;
+        if (contacts.isEmpty())
+            return null;
         else {
+            Contact contact = contacts.getFirst();
             contact.setContactId(getServiceReqNumber());
             contact.setCreateDt(new Date(System.currentTimeMillis()));
             return contactRepository.save(contact);
