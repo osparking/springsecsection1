@@ -3,6 +3,7 @@ package com.bumsoap.controller;
 import com.bumsoap.model.Contact;
 import com.bumsoap.repository.ContactRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreFilter;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +19,7 @@ public class ContactController {
     private final ContactRepository contactRepository;
 
     @PostMapping("/contact")
+    @PreFilter("filterObject.contactName != 'Test'")
     public Contact saveContactInquiryDetails(@RequestBody List<Contact> contacts) {
         Contact contact = contacts.getFirst();
 
