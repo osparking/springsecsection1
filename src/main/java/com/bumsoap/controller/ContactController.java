@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.Random;
 
 @RestController
@@ -17,7 +18,8 @@ public class ContactController {
     private final ContactRepository contactRepository;
 
     @PostMapping("/contact")
-    public Contact saveContactInquiryDetails(@RequestBody Contact contact) {
+    public Contact saveContactInquiryDetails(@RequestBody List<Contact> contacts) {
+        Contact contact = contacts.getFirst();
         contact.setContactId(getServiceReqNumber());
         contact.setCreateDt(new Date(System.currentTimeMillis()));
         return contactRepository.save(contact);
