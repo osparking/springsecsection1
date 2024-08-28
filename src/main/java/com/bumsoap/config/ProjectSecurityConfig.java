@@ -62,8 +62,6 @@ public class ProjectSecurityConfig {
                         "/invalid_session", "/apiLogin")
                     .permitAll()
         );
-        http.formLogin(withDefaults());
-        http.httpBasic(hbc -> hbc.authenticationEntryPoint(new CustomBasicAuthenticationEntryPoint()));
         http.exceptionHandling(ehc -> ehc.accessDeniedHandler(new CustomAccessDeniedHandler()));
         return http.build();
     }
