@@ -47,7 +47,7 @@ public class ProjectSecurityConfig {
 
         http.csrf(csrfConfig -> csrfConfig
                 .csrfTokenRequestHandler(csrfTokenRequestAttributeHandler)
-                .ignoringRequestMatchers("/contact", "/register", "/apiLogin")
+                .ignoringRequestMatchers("/contact", "/register")
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()));
 
         http.addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class);
@@ -58,8 +58,7 @@ public class ProjectSecurityConfig {
                 .requestMatchers("/myLoans").authenticated()
                 .requestMatchers("/myCards").hasRole("USER")
                 .requestMatchers("/user").authenticated()
-                .requestMatchers("/notices", "/contact", "/error", "/register",
-                        "/invalid_session", "/apiLogin")
+                .requestMatchers("/notices", "/contact", "/error", "/register")
                     .permitAll()
         );
         http.oauth2ResourceServer(rsc->rsc.jwt(jwtConfigurer ->
