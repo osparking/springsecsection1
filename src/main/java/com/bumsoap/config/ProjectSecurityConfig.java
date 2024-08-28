@@ -52,11 +52,6 @@ public class ProjectSecurityConfig {
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()));
 
         http.addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class);
-        http.addFilterBefore(new RequestValidationBeforeFilter(), BasicAuthenticationFilter.class);
-        http.addFilterAfter(new UserLoggingFilter(), BasicAuthenticationFilter.class);
-        http.addFilterAt(new AuthoritiesLoggingFilter(), BasicAuthenticationFilter.class);
-        http.addFilterAfter(new JwtTokenGeneratorFilter(), BasicAuthenticationFilter.class);
-        http.addFilterBefore(new JwtTokenValidatorFiltor(), BasicAuthenticationFilter.class);
         http.requiresChannel(rcc -> rcc.anyRequest().requiresInsecure())
             .authorizeHttpRequests((req) -> req
                 .requestMatchers("/myAccount").hasRole("USER")

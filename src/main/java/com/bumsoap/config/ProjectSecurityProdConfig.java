@@ -49,11 +49,6 @@ public class ProjectSecurityProdConfig {
                 .ignoringRequestMatchers("/contact", "/register", "/apiLogin")
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
             .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
-            .addFilterBefore(new RequestValidationBeforeFilter(), BasicAuthenticationFilter.class)
-            .addFilterAfter(new UserLoggingFilter(), BasicAuthenticationFilter.class)
-            .addFilterAt(new AuthoritiesLoggingFilter(), BasicAuthenticationFilter.class)
-            .addFilterAfter(new JwtTokenGeneratorFilter(), BasicAuthenticationFilter.class)
-            .addFilterBefore(new JwtTokenValidatorFiltor(), BasicAuthenticationFilter.class)
             .requiresChannel(rcc -> rcc.anyRequest().requiresSecure()) // only HTTPS
             .authorizeHttpRequests((req) -> req
                 .requestMatchers("/myAccount").hasRole("USER")
