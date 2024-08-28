@@ -62,6 +62,8 @@ public class ProjectSecurityConfig {
                         "/invalid_session", "/apiLogin")
                     .permitAll()
         );
+        http.oauth2ResourceServer(rsc->rsc.jwt(jwtConfigurer ->
+                jwtConfigurer.jwtAuthenticationConverter(converter)));
         http.exceptionHandling(ehc -> ehc.accessDeniedHandler(new CustomAccessDeniedHandler()));
         return http.build();
     }
