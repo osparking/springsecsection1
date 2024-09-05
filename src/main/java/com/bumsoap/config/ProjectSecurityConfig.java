@@ -3,6 +3,7 @@ package com.bumsoap.config;
 import com.bumsoap.exceptionhandling.CustomAccessDeniedHandler;
 import com.bumsoap.filter.CsrfCookieFilter;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -22,6 +23,15 @@ import java.util.Collections;
 @Configuration
 @Profile("!prod")
 public class ProjectSecurityConfig {
+
+    @Value("${spring.security.oauth2.resourceserver.opaque.introspection-uri}")
+    String introspectionUri;
+
+    @Value("${spring.security.oauth2.resourceserver.opaque.introspection-client-id}")
+    String clientId;
+
+    @Value("${spring.security.oauth2.resourceserver.opaque.introspection-client-secret}")
+    String clientSecret;
 
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
